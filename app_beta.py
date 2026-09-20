@@ -1,4 +1,14 @@
 import streamlit as st
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+if not os.getenv("OPENAI_API_KEY"):
+    try:
+        os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
+    except Exception:
+        pass
 import json
 from datetime import datetime
 from lama_engine_v2 import get_personalized_guidance
