@@ -11,10 +11,8 @@ if not os.getenv("OPENAI_API_KEY"):
         pass
 import json
 from datetime import datetime
-if os.getenv("OPENAI_API_KEY"):
-    st.success("OpenAI secret found ✅")
-else:
-    st.error("OpenAI secret missing ❌")
+if not os.getenv("OPENAI_API_KEY"):
+    st.error("Configuration error. Please try again later.")
     st.stop()
 
 from lama_engine_v2 import get_personalized_guidance
