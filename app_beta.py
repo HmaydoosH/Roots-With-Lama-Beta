@@ -174,18 +174,21 @@ label p {
 
 .lama-photo-wrap {
     position: relative;
+    height: 540px;
+    overflow: hidden !important;
+    border-radius: 34px !important;
+    clip-path: inset(0 round 34px);
 }
 
 .lama-photo {
     width: 100%;
-    height: 540px;
+    height: 100%;
     object-fit: cover;
     object-position: center 32%;
     display: block;
-    border-radius: 34px;
-    box-shadow:
-        0 24px 55px rgba(73, 48, 62, .20);
-    border: 5px solid rgba(255,255,255,.78);
+    border: none !important;
+    border-radius: 34px !important;
+    box-shadow: none !important;
 }
 
 .photo-badge {
@@ -648,6 +651,47 @@ hr {
     }
 }
 
+
+/* FINAL HERO PHOTO FIX */
+.lama-photo-wrap {
+    position: relative !important;
+    width: 100% !important;
+    height: 540px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    border-radius: 34px !important;
+    border: none !important;
+}
+
+.lama-photo-wrap .lama-photo {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+
+    object-fit: cover !important;
+    object-position: center 32% !important;
+
+    display: block !important;
+    border: none !important;
+    border-radius: 34px !important;
+    box-shadow: none !important;
+}
+
+@media (max-width: 760px) {
+    .lama-photo-wrap {
+        height: 410px !important;
+    }
+
+    .lama-photo-wrap .lama-photo {
+        height: 100% !important;
+    }
+}
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -680,6 +724,55 @@ st.markdown(
     hero_html,
     unsafe_allow_html=True
 )
+
+st.markdown("""
+<style>
+div[data-testid="stPageLink"] a {
+    background: linear-gradient(135deg, #FFF4F4 0%, #F3E8F6 100%);
+    border: 1px solid #E3D0DC;
+    border-radius: 20px;
+    padding: 16px 18px;
+    min-height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6F5061 !important;
+    font-family: "Tajawal", sans-serif !important;
+    font-weight: 800 !important;
+    text-decoration: none !important;
+    box-shadow: 0 10px 24px rgba(112,73,91,.09);
+    transition: all .2s ease;
+}
+
+div[data-testid="stPageLink"] a:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(135deg, #FBE7EA 0%, #EEDFF4 100%);
+    border-color: #D8BDCD;
+}
+</style>
+""", unsafe_allow_html=True)
+
+st.page_link(
+    "pages/4_💬_استشارة_مع_لمى.py",
+    label="💬 احجزي استشارة الآن",
+    width="stretch"
+)
+
+nav1, nav2 = st.columns(2)
+
+with nav1:
+    st.page_link(
+        "pages/2_📖_قصة_لطفلك.py",
+        label="🎁 احصلي على هديتك المجانية",
+        width="stretch"
+    )
+
+with nav2:
+    st.page_link(
+        "pages/3_🎴_بطاقات_تعليمية.py",
+        label="🎴 احصلي على بطاقات تعليمية",
+        width="stretch"
+    )
 
 # ---------- CHILD INFO ----------
 
@@ -1205,3 +1298,131 @@ if st.session_state.get("lama_result"):
             st.success(
                 "شكراً 🤍 رأيك وصل، ورح يساعدنا نحسّن Roots."
             )
+
+# ---------- FOOTER ----------
+
+st.markdown("""
+<style>
+.roots-footer {
+    margin-top: 90px;
+    padding: 34px 20px 18px 20px;
+    border-top: 1px solid #E7D8DF;
+    text-align: center;
+    color: #7B6570;
+    font-family: "Tajawal", sans-serif;
+}
+
+.roots-footer-brand {
+    font-family: "Alexandria", sans-serif;
+    font-weight: 800;
+    color: #624957;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.roots-footer-copy {
+    font-size: 13px;
+    line-height: 1.9;
+    margin-top: 18px;
+    color: #927E88;
+}
+
+.roots-footer-social {
+    font-size: 14px;
+    margin-top: 16px;
+    color: #875F75;
+}
+</style>
+
+<div class="roots-footer">
+    <div class="roots-footer-brand">
+        ROOTS WITH LAMA · جذور مع لمى
+    </div>
+    <div>
+        مساحة دافئة تساعدك تفهمي طفلك وتاخدي خطوات تناسب يومكم الحقيقي 🌷
+    </div>
+</div>
+""", unsafe_allow_html=True)
+
+footer1, footer2, footer3, footer4 = st.columns(
+    4,
+    gap=None
+)
+
+with footer1:
+    st.page_link(
+        "pages/5_🌷_من_نحن.py",
+        label="من نحن؟",
+        width="stretch"
+    )
+
+with footer2:
+    st.page_link(
+        "pages/6_الشروط_والأحكام.py",
+        label="الشروط والأحكام",
+        width="stretch"
+    )
+
+with footer3:
+    st.page_link(
+        "pages/7_سياسة_الخصوصية.py",
+        label="سياسة الخصوصية",
+        width="stretch"
+    )
+
+with footer4:
+    st.page_link(
+        "pages/8_تواصل_معنا.py",
+        label="تواصل معنا",
+        width="stretch"
+    )
+
+st.markdown("""
+<div class="roots-footer-social">
+    Instagram · TikTok · قريباً
+</div>
+
+<div class="roots-footer-copy">
+    © 2026 Roots with Lama · جميع الحقوق محفوظة
+</div>
+""", unsafe_allow_html=True)
+
+
+# ---------- FINAL HOME NAV SIZE FIX ----------
+
+st.markdown("""
+<style>
+
+/* Make every home navigation card fill its entire available column */
+div[data-testid="stPageLink"] {
+    width: 100% !important;
+}
+
+div[data-testid="stPageLink"] > a {
+    width: 100% !important;
+    min-height: 86px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    box-sizing: border-box !important;
+
+    border-radius: 24px !important;
+    padding: 20px 24px !important;
+
+    text-align: center !important;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+    div[data-testid="stPageLink"] > a {
+        min-height: 72px !important;
+        padding: 16px 12px !important;
+        font-size: 14px !important;
+    }
+}
+
+</style>
+""", unsafe_allow_html=True)
+
