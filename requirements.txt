@@ -1,0 +1,6 @@
+streamlit==1.64.0
+openai==3.14.1
+python-dotenv
+reportlab
+arabic-reshaper
+python-bidi

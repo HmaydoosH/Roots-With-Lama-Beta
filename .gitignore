@@ -1,0 +1,19 @@
+# Secrets
+.env
+
+# Virtual environment
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# macOS
+.DS_Store
+
+# Local beta feedback
+beta_feedback.jsonl
+
+# Local test files
+test_plan.pdf
+luxury_test_plan.pdf
