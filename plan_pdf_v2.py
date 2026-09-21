@@ -16,7 +16,8 @@ from reportlab.lib.utils import ImageReader
 
 def find_arabic_font():
     candidates = [
-        Path.home() / "Library/Fonts/NotoKufiArabic[wght].ttf",
+        Path.home() / "Library/Fonts/NotoKufiArabic[wght].ttf"),
+        Path("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"),
         Path("/usr/share/fonts/truetype/noto/NotoKufiArabic-Regular.ttf"),
         Path("/usr/share/fonts/opentype/noto/NotoKufiArabic-Regular.ttf"),
     ]

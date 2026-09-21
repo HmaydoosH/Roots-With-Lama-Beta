@@ -492,6 +492,7 @@ def create_story_pdf(story, page_images):
 
     font_candidates = [
         os.path.expanduser("~/Library/Fonts/NotoKufiArabic[wght].ttf"),
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
         "/usr/share/fonts/truetype/noto/NotoKufiArabic-Regular.ttf",
         "/usr/share/fonts/opentype/noto/NotoKufiArabic-Regular.ttf",
     ]
