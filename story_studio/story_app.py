@@ -1392,45 +1392,45 @@ No text inside the illustration.
 
         st.markdown("""
         <div class="book-title">
-            <div class="book-kicker">📖 قصتك</div>
+        <div class="book-kicker">📖 قصتك</div>
         </div>
         """, unsafe_allow_html=True)
 
         for page in story["pages"]:
 
-            page_number = page["page_number"]
+        page_number = page["page_number"]
 
-            image_bytes = st.session_state.page_images[
-                page_number
-            ]
+        image_bytes = st.session_state.page_images[
+            page_number
+        ]
 
-            st.markdown(
-                f"""
-                <div class="storybook-page">
-                    <div class="page-number">الصفحة {page_number}</div>
-                """,
-                unsafe_allow_html=True
-            )
+        st.markdown(
+            f"""
+            <div class="storybook-page">
+                <div class="page-number">الصفحة {page_number}</div>
+            """,
+            unsafe_allow_html=True
+        )
 
-            st.image(
-                image_bytes,
-                use_container_width=True
-            )
+        st.image(
+            image_bytes,
+            use_container_width=True
+        )
 
-            st.markdown(
-                f"""
-                    <div class="page-text">
-                        {page["text"]}
-                    </div>
+        st.markdown(
+            f"""
+                <div class="page-text">
+                    {page["text"]}
                 </div>
-                """,
-                unsafe_allow_html=True
-            )
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
     else:
 
         st.caption(
-            "بعد توليد الرسومات رح يظهر الكتاب هون كصفحات كاملة."
+        "بعد توليد الرسومات رح يظهر الكتاب هون كصفحات كاملة."
         )
 
 
@@ -1438,68 +1438,28 @@ No text inside the illustration.
     st.subheader("⬇️ تحميل القصة")
 
     # Download story JSON
-    story_json = json.dumps(
-        story,
-        ensure_ascii=False,
-        indent=2
-    ).encode("utf-8")
+    if len(st.session_state.page_images) == 6:
 
-    st.download_button(
-        label="📄 تحميل القصة JSON",
-        data=story_json,
-        file_name="story.json",
-        mime="application/json"
-    )
+        try:
 
-    # Download all generated images as ZIP
-    if len(st.session_state.page_images) > 0:
+            pdf_bytes = create_story_pdf(
+                story,
+                st.session_state.page_images
+            )
 
-        zip_buffer = io.BytesIO()
+            st.download_button(
+                label="📖 تحميل الكتاب PDF",
+                data=pdf_bytes,
+                file_name="my_story.pdf",
+                mime="application/pdf"
+            )
 
-        with zipfile.ZipFile(
-            zip_buffer,
-            "w",
-            zipfile.ZIP_DEFLATED
-        ) as zip_file:
+        except Exception as pdf_error:
 
-            for page_number, image_bytes in st.session_state.page_images.items():
+            st.error(
+                "صار خطأ أثناء تجهيز ملف PDF."
+            )
 
-                zip_file.writestr(
-                    f"page_{page_number}.png",
-                    image_bytes
-                )
-
-        zip_buffer.seek(0)
-
-        st.download_button(
-            label="🖼️ تحميل كل الصور ZIP",
-            data=zip_buffer,
-            file_name="story_images.zip",
-            mime="application/zip"
-        )
-
-        if len(st.session_state.page_images) == 6:
-
-            try:
-
-                pdf_bytes = create_story_pdf(
-                    story,
-                    st.session_state.page_images
-                )
-
-                st.download_button(
-                    label="📖 تحميل الكتاب PDF",
-                    data=pdf_bytes,
-                    file_name="my_story.pdf",
-                    mime="application/pdf"
-                )
-
-            except Exception as pdf_error:
-
-                st.error(
-                    "صار خطأ أثناء تجهيز ملف PDF."
-                )
-
-                st.code(
-                    str(pdf_error)
-                )
+            st.code(
+                str(pdf_error)
+            )
