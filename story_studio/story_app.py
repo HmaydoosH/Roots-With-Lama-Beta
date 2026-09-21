@@ -1398,34 +1398,34 @@ No text inside the illustration.
 
         for page in story["pages"]:
 
-        page_number = page["page_number"]
+            page_number = page["page_number"]
 
-        image_bytes = st.session_state.page_images[
-            page_number
-        ]
+            image_bytes = st.session_state.page_images[
+                page_number
+            ]
 
-        st.markdown(
-            f"""
-            <div class="storybook-page">
-                <div class="page-number">الصفحة {page_number}</div>
-            """,
-            unsafe_allow_html=True
-        )
+            st.markdown(
+                f"""
+                <div class="storybook-page">
+                    <div class="page-number">الصفحة {page_number}</div>
+                """,
+                unsafe_allow_html=True
+            )
 
-        st.image(
-            image_bytes,
-            use_container_width=True
-        )
+            st.image(
+                image_bytes,
+                use_container_width=True
+            )
 
-        st.markdown(
-            f"""
-                <div class="page-text">
-                    {page["text"]}
+            st.markdown(
+                f"""
+                    <div class="page-text">
+                        {page["text"]}
+                    </div>
                 </div>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
+                """,
+                unsafe_allow_html=True
+            )
 
     else:
 
