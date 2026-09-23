@@ -18,12 +18,20 @@ if not os.getenv("OPENAI_API_KEY"):
 from lama_engine_v2 import get_personalized_guidance
 from plan_engine import create_personalized_plan
 from plan_pdf_v2 import create_plan_pdf
+from analytics import track_event
 
 st.set_page_config(
     page_title="Roots with Lama",
     page_icon="🌱",
     layout="centered"
 )
+
+if "home_page_view_tracked" not in st.session_state:
+    track_event(
+        event_name="page_view",
+        page_name="home"
+    )
+    st.session_state.home_page_view_tracked = True
 
 # ---------- DESIGN ----------
 
@@ -884,6 +892,14 @@ if st.button("🌿 ساعديني يا لمى"):
 
             try:
 
+                track_event(
+                    event_name="lama_request",
+                    page_name="home",
+                    metadata={
+                        "category": category
+                    }
+                )
+
                 result = get_personalized_guidance(
                     child_name=child_name,
                     age=age,
@@ -1041,6 +1057,24 @@ if result:
                         )
 
                         st.session_state.personalized_plan_result = plan
+
+                        track_event(
+                            event_name="plan_created",
+                            page_name="home",
+                            metadata={
+                                "category": category,
+                                "plan_type": "consultation_starter"
+                            }
+                        )
+
+                        track_event(
+                            event_name="plan_created",
+                            page_name="home",
+                            metadata={
+                                "category": category,
+                                "plan_type": "personalized"
+                            }
+                        )
 
                     except Exception as e:
 

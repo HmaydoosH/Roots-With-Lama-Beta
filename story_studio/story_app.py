@@ -14,12 +14,20 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.utils import ImageReader
+from analytics import track_event
 
 st.set_page_config(
     page_title="My Story",
     page_icon="📖",
     layout="centered"
 )
+
+if "story_page_view_tracked" not in st.session_state:
+    track_event(
+        event_name="page_view",
+        page_name="story_studio"
+    )
+    st.session_state.story_page_view_tracked = True
 
 load_dotenv()
 
@@ -1366,6 +1374,14 @@ No text inside the illustration.
 
             status.success(
                 "📖 الكتاب صار جاهز!"
+            )
+
+            track_event(
+                event_name="story_images_generated",
+                page_name="story_studio",
+                metadata={
+                    "used_uploaded_photo": child_photo is not None
+                }
             )
 
         except Exception as error:

@@ -17,3 +17,7 @@ beta_feedback.jsonl
 # Local test files
 test_plan.pdf
 luxury_test_plan.pdf
+
+# Local private files
+.env_backup_before_cleanup
+Supbase Pass.pdf
